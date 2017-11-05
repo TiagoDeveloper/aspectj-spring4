@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
-import br.com.tiagodeveloper.controllers.AspectController;
+import br.com.tiagodeveloper.controllers.AspectRestController;
 import br.com.tiagodeveloper.models.Contato;
 
 
@@ -21,16 +21,16 @@ import br.com.tiagodeveloper.models.Contato;
 @Component
 public class AspectOfController {
 	
-	@Before("execution(* br.com.tiagodeveloper.controllers.AspectController.home(..))")
+	@Before("execution(* br.com.tiagodeveloper.controllers.AspectRestController.home(..))")
 	public void antes(){
 		System.out.println("Caiu aqui antes da requisição!");
 	}
-	@After("execution(* br.com.tiagodeveloper.controllers.AspectController.home(..))")
+	@After("execution(* br.com.tiagodeveloper.controllers.AspectRestController.home(..))")
 	public void depois(){
 		System.out.println("Caiu aqui depois da requisição!");
 	}
 	@SuppressWarnings("unchecked")
-	@Around("execution(* br.com.tiagodeveloper.controllers.AspectController.contatos(..))")
+	@Around("execution(* br.com.tiagodeveloper.controllers.AspectRestController.contatos(..))")
 	public List<Contato> contatos(ProceedingJoinPoint joinPoint) throws Throwable{
 		System.out.println("Caiu aqui depois da requisição!");
 			
@@ -38,7 +38,7 @@ public class AspectOfController {
 		obj.forEach(c -> 
 			c.add(
 				linkTo(
-				methodOn(AspectController.class)
+				methodOn(AspectRestController.class)
 				.contatos())
 				.slash(c.getIdContato())
 				.withSelfRel()
